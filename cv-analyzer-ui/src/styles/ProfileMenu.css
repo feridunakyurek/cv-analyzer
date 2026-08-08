@@ -1,0 +1,135 @@
+.profile-menu-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profile-menu-container .profile-avatar {
+  width: 45px;
+  height: 45px;
+  background-color: transparent;
+  font-size: 1.2rem;
+  border: 1px solid var(--glass-border);
+}
+
+.profile-menu-container .profile-avatar-icon {
+  font-size: 30px;
+  color: var(--text-primary);
+}
+
+.account-menu-paper.MuiPaper-root {
+  overflow: visible;
+  filter: drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.32));
+  margin-top: 12px;
+  min-width: 220px;
+  
+  background-color: var(--modal-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--divider-color);
+}
+
+.account-menu-paper.MuiPaper-root::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 20px;
+  width: 10px;
+  height: 10px;
+  background-color: var(--modal-bg);
+  transform: translateY(-50%) rotate(45deg);
+  z-index: 0;
+  border-top: 1px solid var(--divider-color);
+  border-left: 1px solid var(--divider-color);
+}
+
+.menu-user-info {
+  padding: 12px 16px;
+}
+
+.account-menu-paper .menu-icon {
+  color: var(--text-secondary);
+}
+
+.menu-item-delete.MuiMenuItem-root {
+  color: #d32f2f;
+}
+
+.custom-dialog-paper.MuiPaper-root {
+  background-color: var(--modal-bg);
+  color: var(--text-primary);
+  border-radius: 16px;
+  border: 1px solid var(--glass-border);
+  min-width: 320px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.custom-dialog-paper .dialog-title {
+  display: flex;
+  align-items: center;
+  color: var(--text-primary);
+}
+
+.custom-dialog-paper .dialog-title-error {
+  color: #d32f2f;
+}
+
+.custom-dialog-paper .dialog-text {
+  color: var(--text-secondary);
+}
+
+.password-form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.profile-input .MuiFilledInput-root {
+  background-color: var(--dropzone-bg);
+  border-radius: 8px;
+}
+
+.profile-input .MuiFilledInput-root:hover,
+.profile-input .MuiFilledInput-root.Mui-focused {
+  background-color: var(--dropzone-bg);
+}
+
+.profile-input .MuiInputBase-input {
+  color: var(--text-primary);
+}
+
+.profile-input .MuiInputLabel-root {
+  color: var(--text-secondary);
+}
+
+.profile-input .MuiInputLabel-root.Mui-focused {
+  color: #1976d2;
+}
+
+.profile-input .MuiIconButton-root {
+  color: var(--text-secondary);
+}
+
+.btn-cancel.MuiButton-root {
+  color: var(--text-secondary);
+}
+
+.btn-submit.MuiButton-root {
+  background-color: #1976d2;
+  color: white;
+}
+
+.btn-submit.MuiButton-root:hover {
+  background-color: #1565c0;
+}
+
+.custom-backdrop.MuiBackdrop-root {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+}
+
+.custom-backdrop-heavy.MuiBackdrop-root {
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+}

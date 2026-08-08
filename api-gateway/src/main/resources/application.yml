@@ -1,0 +1,50 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOriginPatterns:
+              - "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+            allowCredentials: true
+      routes:
+        - id: auth-service
+          uri: http://auth-service:8081
+          predicates:
+            - Path=/api/v1/auth/**
+
+        - id: cv-service
+          uri: http://cv-analyzer-api:8080
+          predicates:
+            - Path=/api/cv/**
+
+        - id: evaluation-service
+          uri: http://cv-analyzer-api:8080
+          predicates:
+            - Path=/api/v1/evaluations/**
+
+        - id: websocket-service
+          uri: ws://cv-analyzer-api:8080
+          predicates:
+            - Path=/api/v1/ws/**
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    reactor.netty: DEBUG

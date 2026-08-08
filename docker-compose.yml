@@ -1,0 +1,129 @@
+version: '3.8'
+
+networks:
+  cv-network:
+    driver: bridge
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: cv-analyzer-db
+    environment:
+      MYSQL_ROOT_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      MYSQL_DATABASE: cv-evaluation
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      retries: 5
+    networks:
+      - cv-network
+
+  redis:
+    image: redis:alpine
+    container_name: cv-analyzer-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - cv-network
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - cv-network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - cv-network
+
+  api:
+    build:
+      context: ./cv-analyzer-api
+      dockerfile: Dockerfile
+    container_name: cv-analyzer-api
+    expose:
+      - "8080"
+    env_file:
+      - .env
+    environment:
+      JwtToken: ${JwtToken}
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/cv-evaluation?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    volumes:
+      - uploads_data:/app/uploads
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      kafka:
+        condition: service_started
+    networks:
+      - cv-network
+
+  auth:
+    build:
+      context: ./auth-service
+      dockerfile: Dockerfile
+    container_name: auth-service
+    expose:
+      - "8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/auth_db?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - cv-network
+
+  gateway:
+    build:
+      context: ./api-gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - api
+      - auth
+    networks:
+      - cv-network
+
+  ui:
+    build: ./cv-analyzer-ui
+    container_name: cv-analyzer-ui
+    ports:
+      - "3000:80"
+    depends_on:
+      - gateway
+    networks:
+      - cv-network
+
+volumes:
+  mysql_data:
+  uploads_data:

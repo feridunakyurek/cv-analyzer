@@ -1,0 +1,87 @@
+.MuiPaper-root.dropzone {
+  padding: 3rem 2rem; 
+  margin-top: 2rem;
+  position: relative;
+  text-align: center;
+  border-radius: 12px;
+  cursor: pointer;
+  
+  background-color: var(--dropzone-bg);
+  border: 2px dashed var(--dropzone-border); 
+  color: var(--text-secondary);
+  
+  transition: all 0.3s ease-in-out;
+}
+
+.MuiPaper-root.dropzone:hover {
+  background-color: rgba(88, 166, 255, 0.08);
+  border-color: #58A6FF;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.MuiPaper-root.dropzone.active {
+  background-color: rgba(88, 166, 255, 0.15);
+  border-color: #58A6FF;
+  border-style: solid;
+}
+
+.upload-icon {
+  font-size: 48px;
+  margin-bottom: 10px;
+  color: #58A6FF;
+  transition: transform 0.3s ease;
+}
+
+.dropzone:hover .upload-icon {
+  transform: scale(1.1);
+}
+
+.files {
+  width: 100%; 
+  max-width: 440px; 
+  margin: 2rem auto 0 auto; 
+}
+
+.files .files-element {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  border: 1px solid var(--text-secondary);
+}
+
+@media (max-width: 768px) {
+  .body {
+    background: var(--bg-gradient);
+  }
+
+  .MuiPaper-root.dropzone {
+    padding: 2rem 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .upload-icon {
+    font-size: 36px;
+  }
+
+  .files {
+    font-size: 0.85rem; 
+  }
+}
+
+@media (max-width: 480px) {
+  .MuiPaper-root.dropzone {
+    padding: 1.5rem 1rem;
+    border-width: 1px;
+  }
+  
+  .files .files-element {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

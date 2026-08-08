@@ -1,0 +1,120 @@
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.register-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  background: linear-gradient(90deg,#9A6BFF 0%,#58A6FF 50%, #9900DD 100%);
+  background-clip: text;
+  -webkit-text-fill-color: initial;
+  color: transparent;
+}
+
+.register-divider {
+  width: 100%;
+  height: 2px;
+  background-color: var(--divider-color);
+  margin-bottom: 10px;
+}
+
+.name-row {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.register-field {
+  width: 100%;
+}
+
+.register-field .MuiFilledInput-root {
+  background-color: #ffffff !important;
+  border-radius: 4px;
+}
+
+.register-field .MuiInputBase-input {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+.register-field .MuiInputLabel-root {
+  color: #5e6c79 !important;
+}
+.register-field .MuiInputLabel-root.Mui-focused {
+  color: #1976d2 !important;
+}
+
+.password-toggle-icon {
+  color: #5e6c79 !important;
+}
+
+.register-field input:-webkit-autofill,
+.register-field input:-webkit-autofill:hover, 
+.register-field input:-webkit-autofill:focus, 
+.register-field input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px #ffffff inset !important;
+  -webkit-text-fill-color: #000000 !important;
+  border-radius: 4px !important;
+}
+
+.register-buttons {
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.register-submit-button {
+  background-color: #FFFFFF !important;
+  color: #1F1F1F;
+  width: 25% !important;
+  min-width: 120px;
+}
+
+.register-submit-button:hover {
+  background-color: #F5F5F5 ;
+}
+
+.register-alert {
+  width: 100%;
+  margin-top: 16px;
+  border-radius: 8px !important;
+}
+
+.login-redirect-text {
+  margin-top: 16px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.ref-link {
+  color: #ffffff; 
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 5px;
+}
+.ref-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .name-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .register-title {
+    font-size: 2rem;
+  }
+  
+  .register-submit-button {
+     width: 50% !important;
+  }
+}

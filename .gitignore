@@ -1,0 +1,20 @@
+# Environment
+.env
+
+# Keys — kesinlikle push'lanmamalı
+**/src/main/resources/keys/private_key.pem
+
+# Maven
+**/target/
+
+# IDE
+.idea/
+*.iml
+**/.mvn/
+
+# Node
+cv-analyzer-ui/node_modules/
+cv-analyzer-ui/build/
+
+# Docker
+**/.dockerignore
