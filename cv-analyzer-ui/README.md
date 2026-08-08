@@ -49,3 +49,4 @@ Arayüz açıldığında aşağıdaki adımları takip ederek sistemi test edebi
 #### 4.Dil (i18n) ve Tema Değiştirme: 
 * Sayfanın sol üst kısmındaki TR/EN butonuna tıklayarak sayfanın dilini değiştirebilir ve Güneş/Ay iconuna tıklayarak Koyu ve Aydınlık temalar arasında gezinebilirsiniz.
 
+// Try to Github Actions CI
